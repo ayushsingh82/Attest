@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Boxes, Clock, Cpu, Database, Link2, Scale, ShieldCheck, Users } from "lucide-react";
+import { ArrowRight, Boxes, Clock, Cpu, Database, FileCheck2, Landmark, Link2, Scale, ShieldCheck, Users, Wallet } from "lucide-react";
 import { STATUS_TONE, rows } from "@/lib/scenarios";
 import { cn } from "@/lib/utils";
 
@@ -10,10 +10,24 @@ const FLOW = [
   { icon: Boxes, title: "Smart contract", body: "Status written on Sepolia" },
 ];
 
+const ARCH = [
+  { icon: Landmark, title: "Reserve source", body: "Issuer or custodian publishes a reserve report over HTTP." },
+  { icon: Cpu, title: "CRE workflow", body: "Nodes fetch, reach median consensus, and classify coverage." },
+  { icon: FileCheck2, title: "On-chain record", body: "Ratio, status code and reserves are written to DataFeedsCache on Sepolia." },
+  { icon: Wallet, title: "Consumers", body: "Lending markets, exchanges and auditors read the status before they act." },
+];
+
+const FAQ = [
+  ["What does the workflow actually write on-chain?", "A bundle with the reserve amount, the coverage ratio in basis points, a status code from 0 to 4, and the report timestamp."],
+  ["Why use Chainlink CRE for this?", "CRE runs the same code on a decentralized network and merges the results with consensus. A script on a single server would be one point of failure and one point of trust."],
+  ["Is this running on mainnet?", "No. It targets Sepolia and reads a mock reserve API. It is a demo, it has not been audited, and it should not guard real funds."],
+  ["What happens when reserves fall short?", "Coverage under 100% is a WATCH, and under 99% is UNDERCOLLATERALIZED. A pulled ripcord is HALTED, and a report older than 24 hours is STALE. Contracts reading the feed can pause or alert on any of these."],
+];
+
 const WHY = [
-  { icon: ShieldCheck, title: "Verifiable backing", body: "Anyone can read the latest reserve status from the chain instead of trusting a PDF or a dashboard." },
-  { icon: Users, title: "Decentralized agreement", body: "Several nodes fetch the report and a median decides the numbers, so one bad source cannot move the result." },
-  { icon: Scale, title: "Built for compliance", body: "Stale reports, pulled ripcords and thin coverage each produce a distinct, auditable status code." },
+  { icon: ShieldCheck, title: "Verifiable backing", body: "Counterparties read the latest reserve status from the chain instead of relying on a PDF, a press release or a dashboard they cannot verify." },
+  { icon: Users, title: "Decentralized agreement", body: "Independent nodes fetch the report and a median decides each number, so a single faulty node cannot change what is published." },
+  { icon: Scale, title: "Built for compliance", body: "Stale reports, an active issuer ripcord and thin coverage each produce a distinct status code, which gives auditors and regulators a clear trail." },
 ];
 
 export default function Home() {
@@ -26,7 +40,7 @@ export default function Home() {
           </span>
           <h1 className="mt-6 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl">Know if a token is still backed, on-chain.</h1>
           <p className="mt-5 max-w-2xl text-lg text-muted">
-            Reserve Guard is a CRE workflow. It reads a reserve report from an external API, decides whether reserves cover supply, and writes the result to a smart contract.
+            Reserve Guard is a Chainlink Runtime Environment workflow for tokenized assets and stablecoins. It reads the issuer&apos;s reserve report, classifies backing into an auditable status, and publishes it to a smart contract that anyone can read.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/dashboard" className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium transition-colors hover:bg-primary-hover">
@@ -75,7 +89,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-24 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+        <h2 className="text-2xl font-semibold tracking-tight">Architecture</h2>
+        <p className="mt-2 max-w-2xl text-sm text-muted">Data moves left to right. Nothing is written until the nodes agree.</p>
+        <div className="mt-8 grid gap-3 md:grid-cols-4">
+          {ARCH.map(({ icon: Icon, title, body }, i) => (
+            <div key={title} className="relative rounded-xl border bg-surface p-5">
+              <Icon className="size-5 text-primary" />
+              <p className="mt-4 font-medium">{title}</p>
+              <p className="mt-1 text-sm text-muted">{body}</p>
+              {i < ARCH.length - 1 && <ArrowRight className="absolute -right-3 top-1/2 z-10 hidden size-5 -translate-y-1/2 rounded-full bg-background text-primary md:block" />}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
         <div className="flex items-baseline justify-between">
           <h2 className="text-2xl font-semibold tracking-tight">What a report becomes</h2>
           <Link href="/dashboard" className="text-sm text-primary hover:underline">Open the simulator</Link>
@@ -88,6 +117,28 @@ export default function Home() {
               <span className={cn("mt-3 inline-block rounded-full border px-2 py-0.5 font-mono text-[10px]", STATUS_TONE[r.result.status])}>{r.result.status}</span>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-4 pb-20 sm:px-6">
+        <h2 className="text-2xl font-semibold tracking-tight">Frequently asked questions</h2>
+        <div className="mt-8 divide-y rounded-xl border bg-surface">
+          {FAQ.map(([q, a]) => (
+            <details key={q} className="px-5 py-4">
+              <summary className="cursor-pointer list-none font-medium marker:hidden">{q}</summary>
+              <p className="mt-2 text-sm text-muted">{a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-hex border-t">
+        <div className="mx-auto flex max-w-6xl flex-col items-start gap-5 px-4 py-16 sm:px-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight">See the risk logic run.</h2>
+            <p className="mt-1 text-muted">Move the reserves and supply and watch the status change.</p>
+          </div>
+          <Link href="/dashboard" className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium transition-colors hover:bg-primary-hover">Open the dashboard <ArrowRight className="size-4" /></Link>
         </div>
       </section>
     </>
