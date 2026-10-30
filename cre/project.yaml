@@ -1,0 +1,11 @@
+# CRE project settings. Each target defines the DON family and RPCs used for simulation.
+default: &default
+  cre-cli:
+    don-family: "zone-a"
+  rpcs:
+    - chain-name: ethereum-testnet-sepolia
+      url: https://ethereum-sepolia-rpc.publicnode.com
+
+staging-settings: *default
+
+production-settings: *default
