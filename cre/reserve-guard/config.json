@@ -1,0 +1,13 @@
+{
+  "schedule": "0 */5 * * * *",
+  "url": "http://localhost:8787/reserves/healthy",
+  "dataIdHex": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "thresholds": { "healthyBps": 10000, "watchBps": 9900, "maxAgeSeconds": 86400 },
+  "evms": [
+    {
+      "dataFeedsCacheAddress": "0x92bc132002694088c8afE4f09EEA87c46fF5902f",
+      "chainName": "ethereum-testnet-sepolia",
+      "gasLimit": "1000000"
+    }
+  ]
+}
