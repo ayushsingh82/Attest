@@ -11,7 +11,7 @@ export default function DashboardPage() {
   const tally = rows.reduce<Record<string, number>>((m, r) => ({ ...m, [r.result.status]: (m[r.result.status] ?? 0) + 1 }), {});
   return (
     <>
-      <PageTitle title="Dashboard" description="Try the risk logic, then see how each of the five mock reports is classified. The workflow runs this exact code on every node." />
+      <PageTitle eyebrow="Overview" title="Dashboard" description="Try the risk logic, then see how each of the five mock reports is classified. The workflow runs this exact code on every node." />
       <div className="mx-auto max-w-6xl space-y-14 px-4 py-12 sm:px-6">
         <section>
           <div className="grid grid-cols-2 divide-x divide-y overflow-hidden rounded-xl border bg-surface sm:grid-cols-3 lg:grid-cols-5 lg:divide-y-0">
@@ -22,9 +22,9 @@ export default function DashboardPage() {
               ["Needs attention", String(rows.length - (tally.HEALTHY ?? 0))],
               ["Target chain", "Sepolia"],
             ].map(([k, v]) => (
-              <div key={k} className="p-4">
+              <div key={k} className="p-4 transition-colors hover:bg-background/40">
                 <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">{k}</p>
-                <p className="mt-1.5 text-xl font-semibold">{v}</p>
+                <p className="mt-1.5 text-2xl font-semibold tracking-tight">{v}</p>
               </div>
             ))}
           </div>

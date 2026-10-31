@@ -24,14 +24,14 @@ export default function WorkflowPage() {
   const config = readFileSync(join(process.cwd(), "cre", "reserve-guard", "config.json"), "utf8");
   return (
     <>
-      <PageTitle title="Workflow" description="A Chainlink Runtime Environment workflow that connects an external reserve API to a smart contract." />
+      <PageTitle eyebrow="CRE workflow" title="Workflow" description="A Chainlink Runtime Environment workflow that connects an external reserve API to a smart contract." />
       <div className="mx-auto max-w-6xl space-y-14 px-4 py-12 sm:px-6">
         <section>
           <h2 className="text-2xl font-semibold tracking-tight">Steps</h2>
-          <ol className="mt-6 space-y-4">
+          <ol className="relative mt-6 space-y-4 before:absolute before:bottom-6 before:left-[2.15rem] before:top-6 before:w-px before:bg-gradient-to-b before:from-primary before:to-border">
             {STEPS.map(({ icon: Icon, title, file, body }, i) => (
-              <li key={title} className="flex gap-4 rounded-xl border bg-surface p-5">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border text-primary"><Icon className="size-5" /></div>
+              <li key={title} className="relative flex gap-4 rounded-xl border bg-surface p-5 transition-colors hover:border-primary/60">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border bg-background text-primary shadow-[0_0_16px_-4px_var(--color-primary)]"><Icon className="size-5" /></div>
                 <div>
                   <p className="font-medium"><span className="mr-2 font-mono text-xs text-muted">0{i + 1}</span>{title}</p>
                   <p className="mt-1 text-sm text-muted">{body}</p>

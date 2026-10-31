@@ -61,7 +61,7 @@ export function Simulator() {
               key={p.label}
               type="button"
               onClick={() => { setTrust(p.trust); setToken(p.token); setRipcord(p.ripcord); setAge(p.age); }}
-              className="rounded-lg border px-3 py-1.5 text-xs transition-colors hover:border-primary hover:text-foreground text-muted"
+              className={cn("rounded-lg border px-3 py-1.5 text-xs transition-colors hover:border-primary hover:text-foreground", p.trust === trust && p.token === token && p.ripcord === ripcord && p.age === age ? "border-primary bg-primary/10 text-foreground" : "text-muted")}
             >
               {p.label}
             </button>
@@ -81,16 +81,17 @@ export function Simulator() {
         </p>
       </div>
 
-      <div className="rounded-xl border bg-surface p-6">
-        <h3 className="font-medium">What gets written on-chain</h3>
-        <div className="mt-4 flex flex-col items-center">
+      <div className="relative overflow-hidden rounded-xl border bg-surface p-6">
+        <div className="pointer-events-none absolute -top-24 left-1/2 size-64 -translate-x-1/2 rounded-full opacity-20 blur-3xl transition-colors duration-500" style={{ background: color }} aria-hidden />
+        <h3 className="relative font-medium">What gets written on-chain</h3>
+        <div className="relative mt-4 flex flex-col items-center">
           <svg viewBox="0 0 200 120" className="w-64" role="img" aria-label={`Coverage ${coverage.toFixed(2)} percent`}>
             <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="var(--color-border)" strokeWidth="14" strokeLinecap="round" />
-            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke={color} strokeWidth="14" strokeLinecap="round" strokeDasharray={`${arc * angle} ${arc}`} />
+            <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke={color} strokeWidth="14" strokeLinecap="round" strokeDasharray={`${arc * angle} ${arc}`} style={{ transition: "stroke-dasharray .4s ease, stroke .3s", filter: `drop-shadow(0 0 6px ${color})` }} />
             <text x="100" y="92" textAnchor="middle" className="fill-foreground text-[22px] font-semibold">{coverage.toFixed(2)}%</text>
             <text x="100" y="110" textAnchor="middle" className="fill-muted text-[9px]">coverage</text>
           </svg>
-          <span className={cn("mt-2 rounded-full border px-3 py-1 font-mono text-xs", STATUS_TONE[result.status])}>{result.status}</span>
+          <span className={cn("mt-2 rounded-full border bg-background/40 px-3 py-1 font-mono text-xs", STATUS_TONE[result.status])}>{result.status}</span>
         </div>
         <dl className="mt-6 divide-y rounded-lg border text-sm">
           {[
