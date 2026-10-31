@@ -7,7 +7,7 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: { default: "Reserve Guard", template: "%s - Reserve Guard" },
+  title: { default: "Attest", template: "%s - Attest" },
   description: "A Chainlink CRE workflow that checks token reserves against supply and writes a risk status on-chain.",
 };
 

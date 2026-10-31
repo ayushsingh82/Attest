@@ -3,7 +3,7 @@
 Project for the Chainlink "Best workflow with CRE" bounty ($2,000, 2 winners) at the BLI Legal Tech Hackathon 2.
 Deadline: 2026-11-01 06:31 (UTC+5:30). Bounty details are in [BOUNTY.md](./BOUNTY.md).
 
-## Idea: Reserve Guard
+## Idea: Attest
 
 A CRE workflow that fetches a reserve report from an external API, decides if reserves cover token supply, and writes the status on-chain. Chosen because it is the lowest-risk way to meet every requirement: one blockchain, one external API, and a CLI simulation.
 

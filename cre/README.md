@@ -1,4 +1,4 @@
-# Reserve Guard (CRE workflow)
+# Attest (CRE workflow)
 
 A Chainlink CRE workflow that checks whether a token's reserves still cover its supply and writes a risk status on-chain.
 
