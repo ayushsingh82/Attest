@@ -1,14 +1,10 @@
 import { CheckCircle2, CircleDashed, Loader2 } from "lucide-react";
-import { Cta } from "@/components/cta";
-import { PageTitle } from "@/components/site";
+import { Cta } from "@/components/ui/cta";
+import { PageTitle } from "@/components/layout/page-title";
+import { PHASES } from "@/lib/content/roadmap";
 
 export const metadata = { title: "Roadmap" };
 
-const PHASES = [
-  { name: "Now", state: "done", items: ["CRE workflow with HTTP fetch, median consensus and EVM write", "Risk logic with five statuses and unit tests", "Mock reserve API with five scenarios", "Dashboard, live simulator and docs"] },
-  { name: "Next", state: "active", items: ["Run `cre workflow simulate` and publish the log", "Broadcast a real write to Sepolia", "Record the demo video and submit"] },
-  { name: "Later", state: "todo", items: ["Real custodian and attestation API adapters", "Multi-asset support with per-token thresholds", "Alerting webhooks and a status-change event feed", "Audit and mainnet deployment"] },
-];
 
 const ICON = { done: CheckCircle2, active: Loader2, todo: CircleDashed } as const;
 

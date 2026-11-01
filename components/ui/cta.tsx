@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ButtonLink } from "@/components/ui/button-link";
 
 export function Cta({ title = "See the risk logic run.", body = "Move the reserves and supply and watch the status change.", href = "/dashboard", label = "Open the dashboard" }: { title?: string; body?: string; href?: string; label?: string }) {
   return (
@@ -9,7 +8,7 @@ export function Cta({ title = "See the risk logic run.", body = "Move the reserv
           <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
           <p className="mt-1 text-muted">{body}</p>
         </div>
-        <Link href={href} className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium transition-colors hover:bg-primary-hover">{label} <ArrowRight className="size-4" /></Link>
+        <ButtonLink href={href} arrow>{label}</ButtonLink>
       </div>
     </section>
   );

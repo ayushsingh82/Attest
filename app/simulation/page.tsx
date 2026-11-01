@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { PageTitle } from "@/components/site";
+import { PageTitle } from "@/components/layout/page-title";
 
 export const metadata = { title: "Simulation" };
 

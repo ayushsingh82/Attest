@@ -108,14 +108,17 @@ To try other scenarios, set `url` in `cre/reserve-guard/config.json` to `/reserv
 
 | Path | Purpose |
 |---|---|
-| `app/`, `components/`, `lib/` | Next.js web app (App Router, TypeScript, Tailwind) |
+| `app/` | Next.js App Router pages: home, dashboard, workflow, simulation, use cases, docs, about, roadmap, FAQ |
+| `components/brand`, `layout`, `ui`, `features` | Logo, header/footer/nav, shared UI, and the simulator |
+| `lib/content/` | Page copy and data (nav, FAQ, use cases, roadmap, workflow steps) kept out of the page files |
+| `lib/scenarios.ts`, `lib/utils.ts` | Mock scenarios shared with the workflow risk logic, and the `cn` helper |
 | `cre/reserve-guard/workflow.ts` | CRE workflow: fetch, consensus, risk, chain write |
 | `cre/reserve-guard/risk.ts` | Pure risk logic, shared with the web simulator |
 | `cre/reserve-guard/risk.test.ts` | Unit tests |
 | `cre/reserve-guard/config.json` | Schedule, API URL, thresholds, target chain and contract |
 | `cre/reserve-guard/contracts/` | `DataFeedsCache` ABI and bindings from the official template |
 | `cre/mock-server/server.mjs` | Mock reserve API with five scenarios |
-| `PLAN.md`, `BOUNTY.md`, `UI.md` | Plan, bounty details and design notes |
+| `docs/` | `PLAN.md`, `BOUNTY.md` and `UI.md`: plan, bounty details and design notes |
 
 ## Testing
 

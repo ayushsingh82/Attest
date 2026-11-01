@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { assessReserves, DEFAULT_THRESHOLDS, type RiskStatus } from "@/cre/reserve-guard/risk";
-import { STATUS_TONE } from "@/lib/scenarios";
+import { StatusBadge } from "@/components/ui/status-badge";
 import { cn } from "@/lib/utils";
 
 const NOW = Math.floor(Date.parse("2026-10-28T12:00:00Z") / 1000);
@@ -91,7 +91,7 @@ export function Simulator() {
             <text x="100" y="92" textAnchor="middle" className="fill-foreground text-[22px] font-semibold">{coverage.toFixed(2)}%</text>
             <text x="100" y="110" textAnchor="middle" className="fill-muted text-[9px]">coverage</text>
           </svg>
-          <span className={cn("mt-2 rounded-full border bg-background/40 px-3 py-1 font-mono text-xs", STATUS_TONE[result.status])}>{result.status}</span>
+          <StatusBadge status={result.status} size="lg" className="mt-2" />
         </div>
         <dl className="mt-6 divide-y rounded-lg border text-sm">
           {[

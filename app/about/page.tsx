@@ -1,14 +1,10 @@
-import { AlertTriangle, EyeOff, FileX, Lightbulb } from "lucide-react";
-import { Cta } from "@/components/cta";
-import { PageTitle } from "@/components/site";
+import { Lightbulb } from "lucide-react";
+import { Cta } from "@/components/ui/cta";
+import { PageTitle } from "@/components/layout/page-title";
+import { PROBLEMS } from "@/lib/content/about";
 
 export const metadata = { title: "About" };
 
-const PROBLEMS = [
-  { icon: FileX, title: "Reserves live in PDFs", body: "Issuers publish attestations monthly as documents. By the time you read one, it is already out of date." },
-  { icon: EyeOff, title: "Nobody can check", body: "A dashboard run by the issuer is still the issuer talking. There is no neutral party in the loop." },
-  { icon: AlertTriangle, title: "Contracts cannot react", body: "Lending markets and exchanges cannot read a PDF, so they cannot pause when backing slips." },
-];
 
 export default function AboutPage() {
   return (

@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Logo } from "@/components/site";
+import { ButtonLink } from "@/components/ui/button-link";
+import { Logo } from "@/components/brand/logo";
 
 export default function NotFound() {
   return (
@@ -10,7 +9,7 @@ export default function NotFound() {
         <p className="mt-6 font-mono text-xs uppercase tracking-[0.25em] text-primary">404</p>
         <h1 className="text-gradient mt-2 text-4xl font-semibold tracking-tight">Nothing attested here.</h1>
         <p className="mt-3 text-muted">That page does not exist. Head back and run the simulator instead.</p>
-        <Link href="/dashboard" className="mt-8 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium transition-colors hover:bg-primary-hover">Open the dashboard <ArrowRight className="size-4" /></Link>
+        <ButtonLink href="/dashboard" arrow className="mt-8">Open the dashboard</ButtonLink>
       </div>
     </section>
   );

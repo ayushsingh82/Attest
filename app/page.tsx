@@ -1,28 +1,15 @@
 import Link from "next/link";
-import { ArrowRight, Boxes, Check, X, Clock, Cpu, Database, FileCheck2, Landmark, Link2, Scale, ShieldCheck, Users, Wallet } from "lucide-react";
-import { STATUS_TONE, rows } from "@/lib/scenarios";
-import { cn } from "@/lib/utils";
-
-const FLOW = [
-  { icon: Clock, title: "Cron trigger", body: "Runs on a schedule" },
-  { icon: Database, title: "Reserve API", body: "Nodes fetch and agree" },
-  { icon: Cpu, title: "Risk check", body: "Coverage becomes a status" },
-  { icon: Boxes, title: "Smart contract", body: "Status written on Sepolia" },
-];
-
-const ARCH = [
-  { icon: Landmark, title: "Reserve source", body: "Issuer or custodian publishes a reserve report over HTTP." },
-  { icon: Cpu, title: "CRE workflow", body: "Nodes fetch, reach median consensus, and classify coverage." },
-  { icon: FileCheck2, title: "On-chain record", body: "Ratio, status code and reserves are written to DataFeedsCache on Sepolia." },
-  { icon: Wallet, title: "Consumers", body: "Lending markets, exchanges and auditors read the status before they act." },
-];
+import { ArrowRight, Check, X, Link2, ShieldCheck } from "lucide-react";
+import { StatusBadge } from "@/components/ui/status-badge";
+import { ButtonLink } from "@/components/ui/button-link";
+import { Card, IconTile } from "@/components/ui/card";
+import { CASES } from "@/lib/content/use-cases";
+import { rows } from "@/lib/scenarios";
+import { FLOW, ARCH, WHY } from "@/lib/content/home";
 
 
-const WHY = [
-  { icon: ShieldCheck, title: "Verifiable backing", body: "Counterparties read the latest reserve status from the chain instead of relying on a PDF, a press release or a dashboard they cannot verify." },
-  { icon: Users, title: "Decentralized agreement", body: "Independent nodes fetch the report and a median decides each number, so a single faulty node cannot change what is published." },
-  { icon: Scale, title: "Built for compliance", body: "Stale reports, an active issuer ripcord and thin coverage each produce a distinct status code, which gives auditors and regulators a clear trail." },
-];
+
+
 
 export default function Home() {
   return (
@@ -39,10 +26,8 @@ export default function Home() {
               Attest is a Chainlink Runtime Environment workflow for tokenized assets and stablecoins. It reads the issuer&apos;s reserve report, classifies backing into an auditable status, and publishes it to a smart contract that anyone can read.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/dashboard" className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium shadow-lg shadow-primary/30 transition-colors hover:bg-primary-hover">
-                Try the simulator <ArrowRight className="size-4" />
-              </Link>
-              <Link href="/workflow" className="rounded-lg border bg-surface/60 px-5 py-3 text-sm font-medium backdrop-blur transition-colors hover:bg-surface">How it works</Link>
+              <ButtonLink href="/demo" arrow>Try the live demo</ButtonLink>
+              <ButtonLink href="/workflow" variant="secondary">How it works</ButtonLink>
             </div>
             <dl className="mt-12 grid max-w-md grid-cols-3 divide-x overflow-hidden rounded-xl border bg-surface/70 backdrop-blur">
               {[["5", "risk statuses"], ["4", "workflow steps"], ["1", "chain write"]].map(([v, l]) => (
@@ -195,8 +180,27 @@ export default function Home() {
             <div key={r.id} className="rounded-xl border bg-surface p-4">
               <p className="text-sm font-medium">{r.label}</p>
               <p className="mt-2 text-2xl font-semibold">{(r.result.ratioBps / 100).toFixed(1)}%</p>
-              <span className={cn("mt-3 inline-block rounded-full border px-2 py-0.5 font-mono text-[10px]", STATUS_TONE[r.result.status])}>{r.result.status}</span>
+              <StatusBadge status={r.result.status} size="sm" className="mt-3" />
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+        <div className="flex items-baseline justify-between">
+          <h2 className="text-2xl font-semibold tracking-tight">Who reads the status</h2>
+          <Link href="/use-cases" className="text-sm text-primary hover:underline">All use cases</Link>
+        </div>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {CASES.slice(0, 3).map(({ icon: Icon, who, title, body }) => (
+            <Card key={title} interactive>
+              <div className="flex items-center justify-between">
+                <IconTile><Icon className="size-5" /></IconTile>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted">{who}</span>
+              </div>
+              <p className="mt-4 font-medium">{title}</p>
+              <p className="mt-1 text-sm text-muted">{body}</p>
+            </Card>
           ))}
         </div>
       </section>

@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated contract bindings and CRE tooling, linted by their own project.
+    "cre/**",
   ]),
 ]);
 
